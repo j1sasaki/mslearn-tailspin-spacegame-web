@@ -4,16 +4,12 @@ trigger:
 pool:
   vmImage: 'ubuntu-16.04'
   demands:
-  - npm
-
-variables:
-  buildConfiguration: 'Release'
+    - npm
 
 steps:
 - task: UseDotNet@2
   displayName: 'Use .NET Core SDK 3.1.100'
   inputs:
-    packageType: sdk
     version: 3.1.100
 
 - task: Npm@1
@@ -43,3 +39,5 @@ steps:
     command: 'build'
     arguments: '--no-restore --configuration Release'
     projects: '**/*.csproj'
+
+タスク: DotNetCoreCLI@2表示名: 'プロジェクトを公開 - リリース' 入力: コマンド: '発行' プロジェクト: '発行' プロジェクト: '**/*.csproj' publishWebProjects: 偽引数: '--ビルドなし --構成リリース --出力 $(ビルド.アーティファクトステージングディレクトリ)/リリース' zipAfterPublish: true -タスク: PublishBuildArtifacts@1表示名: 'アーティファクトの公開: ドロップ' 条件: 成功()
